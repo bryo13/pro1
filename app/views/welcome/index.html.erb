@@ -1,0 +1,33 @@
+<div class = "container">
+
+  <div class = "jumbotron">
+    <p>University Of Eldoret</p>
+    <p>School Of Science</p>
+  </div>
+
+ <div class ="row">
+  
+    <div class = "col-sm-4">
+
+     <h3><%= link_to 'Visitors','#'%></h3>
+      <div class = "image">
+         <a href ='#'><%= image_tag("visitor.jpg",size:"300x300")%></a>
+         </div>
+      </div>
+
+    <div class="col-sm-4">
+     <h3><%= link_to "Student", new_user_session_path %></h3>
+     <div class = "image">
+      <a href ='/users/sign_in'><%= image_tag("student1.jpg",size:"300x300")%></a>
+    </div>
+    </div>
+
+    <div class="col-sm-4">
+     <h3><%= link_to 'Administration',"#"%></h3>
+     <div class = "image">
+      <%= image_tag("lec.jpg",size:"300x300")%>
+    </div>
+    </div>
+
+ </div>
+ </div>

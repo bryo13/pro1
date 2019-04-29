@@ -1,0 +1,25 @@
+<th>Email</th>
+<td><%= @user.email %></td>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @user.role.name %>
+</p>
+
+<p>
+  <strong>Joined on:</strong>
+  <%= @joined_on %>
+</p>
+<p>
+  <strong>Last logged in on:</strong>
+  <%= @last_login %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

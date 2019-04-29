@@ -1,0 +1,30 @@
+
+<h2><%= @task.unit_name%></h2>
+
+<p>
+  <strong>Unit code:</strong>
+  <%= @task.unit_code %>
+</p>
+
+<p>
+  <strong>Unit name:</strong>
+  <%= @task.unit_name %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @task.semester %>
+</p>
+
+<p>
+  <strong>Additional information:</strong>
+  <%= @task.additional_information %>
+</p>
+
+<p>
+  <strong>Lecture's Email:</strong>
+  <%= @task.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

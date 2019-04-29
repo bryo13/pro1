@@ -1,0 +1,47 @@
+
+<h1>Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit code</th>
+      <th>Unit name</th>
+      <th>Semester</th>
+      <th>Additional information</th>
+      
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.unit_code %></td>
+        <td><%= task.unit_name %></td>
+        <td><%= task.semester %></td>
+        <td><%= task.additional_information %></td>
+        <td><%= link_to 'Show', task %></td>
+                
+       <td>
+        <% if can? :update, task %>
+          <%= link_to 'Edit', edit_task_path(task) %>
+        <% end %>
+      </td>
+
+      <td>  
+      <% if can? :destroy, task %>
+    <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+</td>
+
+<% if can? :create, task %>
+  <%= link_to 'New Item', new_task_path %>
+<% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_task_path %>
