@@ -1,0 +1,35 @@
+<li><% Notassignment.all.each do |notassignment| %>
+           <%= link_to notassignment.name, material_path(notassignment: notassignment.name), class: 'btn btn-info'%>
+
+   <% end %>
+
+</li>
+
+<% if @tasks.present? %>
+  <%= render 'task' %>
+<% else %>
+  <p>There are no tasks containing the term(s) <%= params[:search] %>.</p>
+</br>
+
+<table class="table table-bordered table-striped">
+<thead>
+
+<tr>
+<th><h3> Available Notes / Assignment</h3></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% @tasks.each do |task| %>
+<td><%= link_to task.unit_code, task %> :
+  <b><i><%= task.additional_information%></i></b>
+</td>
+
+</tr>
+<% end %>
+</tbody>
+</table>
+<% end %>
+<div class="page">
+<%= will_paginate @task, renderer: BootstrapPagination::Rails,previous_label:"Newer", next_label: "Older", inner_window: 1, outer_window: 0 %>
+</div>

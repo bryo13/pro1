@@ -3,3 +3,14 @@
 @import 'bootstrap';
 @import 'navigation';
 @import 'scaffolds';
+
+
+.col-sm-3{
+    text-decoration-style: solid;
+    font-size: 0.5cm;
+    background-color: azure;
+}
+
+.search{
+	align: right;
+}

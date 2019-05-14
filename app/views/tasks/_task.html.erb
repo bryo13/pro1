@@ -1,0 +1,18 @@
+<table class="table table-bordered table-striped">
+<thead>
+
+<tr>
+<th><h3> Available Notes / Assignment</h3></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<% @tasks.each do |task| %>
+<td><%= link_to task.unit_code, task %> :
+  <b><i><%= task.additional_information%></i></b>
+</td>
+
+</tr>
+<% end %>
+</tbody>
+</table>

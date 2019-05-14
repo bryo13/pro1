@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :tasks
   resources :roles
-
+  resources :works
+  get 'material',to:"tasks#material"
   authenticated :user do
     root :to => 'tasks#index', as: :authenticated_root
   end

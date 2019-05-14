@@ -1,6 +1,9 @@
 
 <h2><%= @task.unit_name%></h2>
 
+
+<div class="row">
+<div class="col-sm-5">
 <p>
   <strong>Unit code:</strong>
   <%= @task.unit_code %>
@@ -17,14 +20,65 @@
 </p>
 
 <p>
+  <strong>Created:</strong>
+  <%= time_ago_in_words(@task.created_at) %>
+</p>
+
+<p>
+  <strong>Duration:</strong>
+  <%if @duedate === Date.today%>
+    <%= @duedate.strftime("Today %b %d")%>
+  <%else%>
+    <%= @duedate.strftime("%A %b %d")%>
+  <%end%>
+  <% if @duedate === Date.today%>
+  <p>Expired</p>
+  <%end%>
+</p>
+
+
+<p>
   <strong>Additional information:</strong>
   <%= @task.additional_information %>
 </p>
 
+
+</div>
+
+<div class="col-sm-7">
+  <strong>Available <%= "Attachment".pluralize(@task.attaches.count)%></strong>
+  <% @task.attaches.each do |attach| %>
+    <% if attach.variable? %>
+      <%= link_to image_tag(attach.variant(resize: "250x250")),attach%>
+    <% elsif attach.previewable?%>
+      <%= link_to image_tag(attach.preview(resize: "250x250")),rails_blob_path(attach, disposition: :attachment)%>
+    <% else %>
+      <%= link_to attach.filename,rails_blob_path(attach, disposition: :attachment)%>
+    <% end %>
+    <% end %>
+</div>
+</div>
+<br>
+
 <p>
   <strong>Lecture's Email:</strong>
-  <%= @task.user.email %>
+  <%= mail_to @task.user.email %>
 </p>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+<%= link_to 'Back', tasks_path,class:"btn btn-info" %>
+
+<% if current_user = user_signed_in?%>
+<% if can? :update, Task%>
+<%= link_to 'Edit', edit_task_path(@task),class:"btn btn-info" %> |
+ <%end%>
+
+<%if can? :destroy, Task%>
+<%= link_to "Delete",@task_path,method: :delete,
+ data:{confirm:"Are you sure you want to delete #{@task.unit_name}"},
+ class:"btn btn-danger" %>
+ <%end%>
+<%end%>
+
+<% if @duedate === Date.today%>
+  <p>Expired</p>
+  <%end%>

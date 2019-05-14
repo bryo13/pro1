@@ -1,0 +1,13 @@
+    Signed in as <%= current_user.email %>. Not you?
+    <li><%= link_to "Edit profile", edit_user_registration_path %></li>
+    <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+    <h3>Assignments and Notes Routing</h3>
+    <li><%= link_to "Available Resources",tasks_path%></li>
+   <li><%= link_to "User list",users_path%></li>
+   <li><%= link_to "New Resourse", new_task_path%></li>
+   <div class="search">
+	<%= form_tag(tasks_path, :method => "get", id: "search-form") do %>
+	<%= text_field_tag :search, params[:search], placeholder: "Search Tasks" %>
+<%= submit_tag "Search" %>
+<% end %>
+</div>

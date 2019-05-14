@@ -1,29 +1,34 @@
 class UsersController < ApplicationController
+
   before_action :authenticate_user!
   load_and_authorize_resource
+  
+   def index
+    @users = User.all.sort_by &:role
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
-   
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = UserPdf.new(@user)
+      
+ 
+        send_data pdf.render,
+                  filename:"user: #{@user.name}",
+                  type:'application/pdf',
+                  disposition:'inline'
+      end 
+    end 
   end
 
-  # GET /users/new
   def new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
-  # POST /users
-  # POST /users.json
   def create
     respond_to do |format|
       if @user.save
@@ -36,8 +41,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
     if user_params[:password].blank?
       user_params.delete(:password)

@@ -1,5 +1,7 @@
-<%= form_with(model: task, local: true) do |form| %>
-  <% if task.errors.any? %>
+<%= simple_form_for(@task,validate:true, local: true,html:{class:'form-inline'}) do |form| %>
+
+<%=form.error_notification%>
+ <% if task.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
@@ -11,6 +13,12 @@
     </div>
   <% end %>
 
+   
+  <div class="field">
+    <%= collection_select(:task, :notassignment_id, Notassignment.all, :id, :name, {prompt: "Choose Type of material"}) %>
+  </div>
+  
+  
   <div class="field">
     <%= form.label :unit_code %>
     <%= form.text_field :unit_code %>
@@ -21,6 +29,7 @@
     <%= form.text_field :unit_name %>
   </div>
 
+    
   <div class="field">
     <%= form.label :semester %>
     <%= form.number_field :semester %>
@@ -28,10 +37,16 @@
 
   <div class="field">
     <%= form.label :additional_information %>
-    <%= form.text_area :additional_information %>
+    <%= form.text_area :additional_information,placeholder:"Please specify material i.e notes or assignments,font to use etc" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Attachments %>
+    <%= form.file_field :attaches,multiple: true,direct_upload: true %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>

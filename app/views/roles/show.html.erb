@@ -1,4 +1,4 @@
-
+<h3><%=@role.name%></h3>
 <p>
   <strong>Name:</strong>
   <%= @role.name %>
@@ -14,5 +14,5 @@
   <%= @assosciated_users %>
 </p>
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<%= link_to 'Edit', edit_role_path(@role) ,class:"btn btn-info"%> |
+<%= link_to 'Back', roles_path ,class:"btn btn-info"%>

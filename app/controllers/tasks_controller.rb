@@ -1,27 +1,40 @@
 class TasksController < ApplicationController
 
-  load_and_authorize_resource
   before_action :authenticate_user!
+  load_and_authorize_resource
+  
   def index
+    @tasks = Task.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+    if params[:search]
+      @tasks = Task.search(params[:search]).order("created_at DESC").paginate(page: params[:page], per_page: 5)
+    else
+      @tasks = Task.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+    end
   end
 
-  # GET /tasks/1
-  # GET /tasks/1.json
+    def material
+      if params[:notassignment].blank?
+      @tasks = Task.all.order("created_at DESC").paginate(page: params[:page], per_page: 5)
+
+    else
+      @notassignment_id = Notassignment.find_by(name: params[:notassignment]).id
+      @tasks = Task.where(notassignment_id: @notassignment_id).order("created_at DESC").paginate(page: params[:page], per_page: 5)
+      end
+    end
+
   def show
+    @duedate = Task.find(params[:id]).created_at+2.day
   end
 
-  # GET /tasks/new
   def new
+    @task = current_user.tasks.build
   end   
 
-  # GET /tasks/1/edit
   def edit
   end
 
-  # POST /tasks
-  # POST /tasks.json
   def create
-   @task.user_id = current_user.id
+   @task = current_user.tasks.build(task_params)
 
     respond_to do |format|
       if @task.save
@@ -34,9 +47,7 @@ class TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1
-  # PATCH/PUT /tasks/1.json
-  def update
+def update
     respond_to do |format|
       if @task.update(task_params)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
@@ -48,8 +59,6 @@ class TasksController < ApplicationController
     end
   end
 
-  # DELETE /tasks/1
-  # DELETE /tasks/1.json
   def destroy
     @task.destroy
     respond_to do |format|
@@ -60,9 +69,11 @@ class TasksController < ApplicationController
 
   private
     
+    def find_task
+      @task = Task.find(params[:id])
+    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:unit_code, :unit_name, :semester, :additional_information, :user_id)
+      params.require(:task).permit(:unit_code, :unit_name, :semester,:notassignment_id, :additional_information, :user_id, attaches:[])
     end
 end

@@ -11,7 +11,10 @@
 // about supported directives.
 //
 //= require rails-ujs
+
+//= require direct_upload
 //= require jquery
+//= require rails.validations
 //= require bootstrap-sprockets
 //= require activestorage
 //= require turbolinks

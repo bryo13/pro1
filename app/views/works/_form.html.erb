@@ -1,0 +1,17 @@
+<% form_with(model:Work, local: true) do |form|%>
+
+  <div class="field">
+    <%= form.label :email_to %>
+    <%= form.text_area :email_to %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Attachments %>
+    <%= form.file_field  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>

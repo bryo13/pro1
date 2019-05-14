@@ -7,27 +7,28 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
   <body>
     <%= render 'header/head'%>
-    <div class="user">
-    <% if user_signed_in? %>
-      Signed in as <%= current_user.email %>. Not you?
-      <%= link_to "Edit profile", edit_user_registration_path %>
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-     <%end%> 
-   </div>
-
+ 
    <div class="container">
-   <% flash.each do |key, value| %>
-    <div class="<%= flash_class(key) %>">
-          <%= value %>
-    </div>
-<% end %>
-
-  <%= yield %>
+   <div class = "row">
+   <%= render 'application/alert'%>
+<div class = "col-sm-3">
+<% if user_signed_in? %>
+    <%= render 'application/app_if_user_signed_in'%>
+      <%else%>
+    <%= render 'application/not_signed_in'%>
+   <%end%>
 </div>
 
+<div class = "col-sm-9">
+  <%= yield %>
+</div>
+  
+</div>
+<div>
   </body>
 </html>

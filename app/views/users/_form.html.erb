@@ -1,7 +1,10 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= simple_form_for(@user, local: true) do |form| %>
+
+  <%=form.error_notification%>
+  
   <% if user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this task from being saved:</h2>
 
       <ul>
       <% user.errors.full_messages.each do |message| %>
@@ -11,24 +14,36 @@
     </div>
   <% end %>
 
+
+
+
   <div class="field">
     <%= form.label :email %><br>
     <%= form.text_field :email %>
   </div>
 
   <div class="field">
-  <%= form.label :password %><br>
-  <%= form.password_field :password, placeholder: "Leave blank if unchanged" %>
-</div>
-
-  <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= collection_select(:user, :role_id, Role.all, :id, :name, {prompt: true}) %>
+   <div class="field">
+    <%= form.label :password %>
+    <%= form.text_field :password %>
   </div>
+
+
+   <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.text_field :password_confirmation %>
+  </div>
+
+
+ 
+  <div class="field">
+    <%= collection_select(:user, :role_id, Role.all, :id, :name, {prompt: "Choose Role"}) %>
+  </div>
+  
   <div class="actions">
     <%= form.submit %>
   </div>
